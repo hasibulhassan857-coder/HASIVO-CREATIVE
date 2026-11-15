@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#171323">
+  <meta name="description" content="HASIVO CREATIVE — Esports design, thumbnails, logos, posters and video editing.">
+  <title>HASIVO CREATIVE — Creative Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --deep:#171323; --purple:#9B79F5; --light:#C8B6FF;
+      --white:#FFFFFF; --soft:#FAF9FD; --muted:#777187;
+      --line:rgba(23,19,35,.10); --shadow:0 18px 55px rgba(40,24,80,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:90px}
+    body{margin:0;background:var(--soft);color:var(--deep);font-family:"DM Sans",sans-serif}
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    .container{width:min(1160px,calc(100% - 40px));margin:auto}
+    .nav-wrap{position:sticky;top:0;z-index:50;background:rgba(250,249,253,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+    nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand img{display:block;width:clamp(104px,13vw,142px);height:auto;max-height:52px;object-fit:contain}
+    .nav-links{display:flex;align-items:center;gap:clamp(16px,3vw,34px);font-size:12px;font-weight:700;letter-spacing:.12em}
+    .nav-links a{transition:color .2s}.nav-links a:hover{color:var(--purple)}
+    .nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:999px;padding:13px 21px;background:var(--purple);color:white;font-weight:700;font-size:13px;transition:transform .2s,box-shadow .2s,background .2s;cursor:pointer}
+    .nav-cta:hover,.btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(155,121,245,.30);background:#8660eb}
+    .menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:12px;padding:9px 12px;color:var(--deep)}
+    .hero{position:relative;overflow:hidden;padding:105px 0 92px;background:var(--deep);color:white}
+    .hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none}
+    .hero:before{width:430px;height:430px;right:-100px;top:-190px;background:radial-gradient(circle,rgba(155,121,245,.42),transparent 68%)}
+    .hero:after{width:380px;height:380px;left:-180px;bottom:-240px;background:radial-gradient(circle,rgba(200,182,255,.23),transparent 70%)}
+    .hero-inner{position:relative;z-index:1;max-width:850px}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--light);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:25px;height:1px;background:var(--purple)}
+    h1,h2,h3{font-family:"Space Grotesk",sans-serif;margin:0}
+    h1{font-size:clamp(48px,8vw,94px);line-height:.98;letter-spacing:-.065em;margin:24px 0}
+    h1 span{color:var(--light)}
+    .hero p{max-width:560px;color:#c8c2d5;font-size:16px;line-height:1.8;margin:0 0 32px}
+    .hero-actions{display:flex;gap:13px;flex-wrap:wrap}
+    .btn-outline{background:transparent;border:1px solid rgba(255,255,255,.25);color:white}
+    .btn-outline:hover{background:rgba(255,255,255,.08);box-shadow:none}
+    .section{padding:92px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:25px;margin-bottom:34px}
+    .section-head h2,.about h2,.contact h2{font-size:clamp(34px,5vw,56px);letter-spacing:-.055em;line-height:1.05;margin-top:13px}
+    .section-head p{max-width:410px;color:var(--muted);line-height:1.7;margin:0}
+    .filters{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:26px}
+    .filter{border:1px solid var(--line);background:white;color:var(--deep);padding:9px 15px;border-radius:999px;font-size:12px;font-weight:700;cursor:pointer;transition:.2s}
+    .filter.active,.filter:hover{background:var(--deep);color:white;border-color:var(--deep)}
+    .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .project-card{background:white;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 5px 20px rgba(23,19,35,.035);transition:transform .25s,box-shadow .25s}
+    .project-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+    .project-art{aspect-ratio:4/3;background:linear-gradient(135deg,#211a35,#5f48a0 58%,#c8b6ff);display:grid;place-items:center;position:relative;overflow:hidden}
+    .project-art:before,.project-art:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.25);border-radius:50%;width:190px;height:190px}
+    .project-art:after{width:260px;height:260px}
+    .project-art span{position:relative;z-index:1;color:white;font-family:"Space Grotesk";font-weight:700;font-size:clamp(20px,3vw,31px);letter-spacing:-.05em;text-align:center;padding:20px}
+    .project-info{padding:18px 19px 20px}
+    .project-info h3{font-size:17px;margin-bottom:6px}
+    .project-info p{font-size:12px;color:var(--muted);margin:0}
+    .services{background:#fff}
+    .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .service{padding:25px;border:1px solid var(--line);border-radius:18px;background:var(--soft);transition:.25s}
+    .service:hover{transform:translateY(-5px);border-color:rgba(155,121,245,.5)}
+    .service-no{color:var(--purple);font-family:"Space Grotesk";font-size:13px;font-weight:700}
+    .service h3{font-size:19px;margin:24px 0 9px}
+    .service p{color:var(--muted);font-size:13px;line-height:1.7;margin:0}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}
+    .about-copy p{color:var(--muted);line-height:1.9;font-size:15px}
+    .about-panel{min-height:300px;border-radius:26px;background:var(--deep);color:white;display:flex;flex-direction:column;justify-content:end;padding:35px;position:relative;overflow:hidden}
+    .about-panel:before{content:"HC";position:absolute;right:-15px;top:-52px;font:700 210px/1 "Space Grotesk";letter-spacing:-.1em;color:rgba(200,182,255,.13)}
+    .about-panel strong{position:relative;font:700 29px "Space Grotesk";letter-spacing:-.04em}
+    .about-panel span{position:relative;color:var(--light);font-size:12px;letter-spacing:.15em;margin-top:8px}
+    .contact{background:var(--deep);color:white;position:relative;overflow:hidden}
+    .contact:before{content:"";position:absolute;width:450px;height:450px;right:-170px;top:-220px;border-radius:50%;background:radial-gradient(circle,rgba(155,121,245,.32),transparent 70%)}
+    .contact-grid{position:relative;display:grid;grid-template-columns:.9fr 1.1fr;gap:55px}
+    .contact .eyebrow{color:var(--light)}
+    .contact h2{margin:16px 0}
+    .contact-intro{color:#c8c2d5;line-height:1.8;max-width:410px}
+    .contact-links{display:grid;gap:13px;margin-top:30px}
+    .contact-links a{color:#fff;font-size:14px;overflow-wrap:anywhere}
+    .contact-links a span{display:block;color:var(--light);font-size:10px;font-weight:700;letter-spacing:.16em;margin-bottom:4px}
+    .socials{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}
+    .socials a{border:1px solid rgba(255,255,255,.22);padding:10px 15px;border-radius:999px;font-size:12px;font-weight:700;transition:.2s}
+    .socials a:hover{background:var(--purple);border-color:var(--purple)}
+    .contact-form{background:white;color:var(--deep);padding:28px;border-radius:22px;box-shadow:var(--shadow)}
+    .contact-form h3{font-size:23px;margin-bottom:20px}
+    .field{margin-bottom:15px}
+    .field label{display:block;font-size:11px;font-weight:700;margin-bottom:7px}
+    .field input,.field select,.field textarea{width:100%;border:1px solid #e7e3ef;background:#fbfaff;border-radius:11px;padding:13px 14px;outline:none;color:var(--deep);font-size:13px}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(155,121,245,.12)}
+    .field textarea{min-height:120px;resize:vertical}
+    .form-note{font-size:11px;color:var(--muted);line-height:1.6;margin:12px 0 0}
+    .form-status{font-size:12px;color:#8b2635;line-height:1.5;margin-top:10px}
+    footer{background:#100d19;color:#aaa3b8;padding:23px 0;font-size:12px}
+    .footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+    .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}}
+    @media(max-width:850px){.nav-cta{display:none}.project-grid{grid-template-columns:repeat(2,1fr)}.contact-grid{grid-template-columns:1fr;gap:35px}.about-grid{gap:30px}}
+    @media(max-width:640px){
+      .container{width:min(100% - 30px,1160px)}nav{height:68px}.menu-btn{display:block}
+      .nav-links{display:none;position:absolute;top:68px;left:0;right:0;padding:20px;background:var(--soft);border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start}
+      .nav-links.open{display:flex}.hero{padding:82px 0 75px}.section{padding:70px 0}
+      .section-head{display:block}.section-head p{margin-top:14px}.project-grid,.service-grid,.about-grid{grid-template-columns:1fr}
+      .project-art{aspect-ratio:16/10}.about-panel{min-height:240px}.contact-form{padding:21px}
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-wrap">
+    <nav class="container" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="HASIVO CREATIVE home">
+        <img src="https://i.ibb.co.com/sBbgCG9/New-Project-238-7-DB9-F1-E-2.png" alt="HASIVO CREATIVE logo">
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open navigation" aria-expanded="false">MENU</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#home">HOME</a><a href="#work">WORK</a><a href="#services">SERVICES</a><a href="#about">ABOUT</a><a href="#contact">CONTACT</a>
+      </div>
+      <a class="nav-cta" href="#contact">LET'S TALK ↗</a>
+    </nav>
+  </div>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-inner reveal">
+        <div class="eyebrow">Independent creative portfolio</div>
+        <h1>DESIGN THAT<br><span>MAKES AN IMPACT.</span></h1>
+        <p>Creative visuals for esports, brands and digital creators. Explore selected work from HASIVO CREATIVE.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#work">EXPLORE MY WORK ↗</a>
+          <a class="btn btn-outline" href="#contact">START A PROJECT</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <div><div class="eyebrow">Selected projects</div><h2>MY CREATIVE WORK.</h2></div>
+          <p>A collection of design and editing projects. These are starter placeholders—your real project images can be added here later.</p>
+        </div>
+        <div class="filters reveal" id="filters">
+          <button class="filter active" data-filter="all">ALL WORK</button>
+          <button class="filter" data-filter="esports">ESPORTS DESIGN</button>
+          <button class="filter" data-filter="esports-thumb">ESPORTS THUMBNAIL</button>
+          <button class="filter" data-filter="logo">LOGO DESIGN</button>
+          <button class="filter" data-filter="thumbnail">THUMBNAIL DESIGN</button>
+          <button class="filter" data-filter="video">VIDEO DESIGN</button>
+        </div>
+        <div class="project-grid" id="projectGrid">
+          <article class="project-card reveal" data-category="esports"><div class="project-art"><span>ESPORTS<br>DESIGN</span></div><div class="project-info"><h3>Esports Design</h3><p>Team visuals & creative graphics</p></div></article>
+          <article class="project-card reveal" data-category="esports-thumb"><div class="project-art"><span>ESPORTS<br>THUMBNAIL</span></div><div class="project-info"><h3>Esports Thumbnail</h3><p>Gaming content artwork</p></div></article>
+          <article class="project-card reveal" data-category="logo"><div class="project-art"><span>LOGO<br>DESIGN</span></div><div class="project-info"><h3>Logo Design</h3><p>Brand identity & logo concepts</p></div></article>
+          <article class="project-card reveal" data-category="thumbnail"><div class="project-art"><span>THUMBNAIL<br>DESIGN</span></div><div class="project-info"><h3>Thumbnail Design</h3><p>Bold visuals for digital content</p></div></article>
+          <article class="project-card reveal" data-category="esports"><div class="project-art"><span>ESPORTS<br>POSTER</span></div><div class="project-info"><h3>Esports Poster</h3><p>Event & team promotional design</p></div></article>
+          <article class="project-card reveal" data-category="video"><div class="project-art"><span>VIDEO<br>EDITING</span></div><div class="project-info"><h3>Video Design</h3><p>Creative video editing projects</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section services" id="services">
+      <div class="container">
+        <div class="section-head reveal"><div><div class="eyebrow">What I do</div><h2>CREATIVE SERVICES.</h2></div><p>Visual design services to help teams, creators and brands stand out.</p></div>
+        <div class="service-grid">
+          <article class="service reveal"><span class="service-no">01 / BRAND</span><h3>Logo & Identity</h3><p>Logo design, profile logos and visual identity assets.</p></article>
+          <article class="service reveal"><span class="service-no">02 / ESPORTS</span><h3>Esports Graphics</h3><p>Posters, team rosters, jerseys and esports thumbnails.</p></article>
+          <article class="service reveal"><span class="service-no">03 / DIGITAL</span><h3>Content & Video</h3><p>Thumbnails, digital artwork and video editing.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="container about-grid">
+        <div class="about-copy reveal"><div class="eyebrow">A little about me</div><h2>IDEAS INTO<br>VISUAL STORIES.</h2><p>HASIVO CREATIVE is a creative portfolio focused on esports graphics, logo design, thumbnails and video editing. This section can be updated with your personal introduction whenever you're ready.</p><a class="btn" href="#contact">WORK WITH ME ↗</a></div>
+        <div class="about-panel reveal"><strong>HASIVO<br>CREATIVE</strong><span>DESIGN • CREATE • INSPIRE</span></div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container contact-grid">
+        <div class="reveal">
+          <div class="eyebrow">Get in touch</div>
+          <h2>LET'S WORK<br>TOGETHER.</h2>
+          <p class="contact-intro">Have a project in mind? Let's create something amazing together.</p>
+          <div class="contact-links">
+            <a href="mailto:hasibulhassan857@gmail.com"><span>EMAIL</span>hasibulhassan857@gmail.com</a>
+            <a href="https://wa.me/8801753092337" target="_blank" rel="noopener noreferrer"><span>PHONE / WHATSAPP</span>+8801753092337</a>
+            <a href="https://www.tiktok.com/@hasib_edite_9x" target="_blank" rel="noopener noreferrer"><span>TIKTOK</span>@hasib_edite_9x</a>
+          </div>
+          <div class="socials">
+            <a href="mailto:hasibulhassan857@gmail.com">EMAIL ME ↗</a>
+            <a href="https://wa.me/8801753092337" target="_blank" rel="noopener noreferrer">WHATSAPP ↗</a>
+            <a href="https://www.tiktok.com/@hasib_edite_9x" target="_blank" rel="noopener noreferrer">TIKTOK ↗</a>
+          </div>
+        </div>
+        <form class="contact-form reveal" action="https://formsubmit.co/hasibulhassan857@gmail.com" method="POST">
+          <h3>Send a project inquiry.</h3>
+          <input type="hidden" name="_subject" value="New project inquiry — HASIVO CREATIVE">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <div class="field"><label for="name">NAME</label><input id="name" name="name" type="text" placeholder="Your name" required></div>
+          <div class="field"><label for="email">EMAIL</label><input id="email" name="email" type="email" placeholder="you@example.com" required></div>
+          <div class="field"><label for="service">SERVICE REQUIRED</label><select id="service" name="service" required><option value="" disabled selected>Select a service</option><option>Esports Design</option><option>Esports Thumbnail</option><option>Logo Design</option><option>Thumbnail Design</option><option>Video Editing</option><option>Other</option></select></div>
+          <div class="field"><label for="details">PROJECT DETAILS</label><textarea id="details" name="project_details" placeholder="Tell me a little about your project..." required></textarea></div>
+          <button class="btn" type="submit">SEND MESSAGE ↗</button>
+          <p class="form-note">Your message will be sent through FormSubmit. On first setup, FormSubmit will email the site owner a verification link; the form will work after that email is confirmed. The form redirects to the service response—this page does not display a fake success message.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><span>© <span id="year"></span> HASIVO CREATIVE. ALL RIGHTS RESERVED.</span><span>DESIGNED WITH PURPOSE.</span></div></footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false');
+    }));
+    document.querySelectorAll('.filter').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.project-card').forEach(card => {
+        card.hidden = filter !== 'all' && card.dataset.category !== filter;
+      });
+    }));
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
