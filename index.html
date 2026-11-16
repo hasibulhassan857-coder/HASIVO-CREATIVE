@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Supabase JS Client Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
       --deep:#171323; --purple:#9B79F5; --light:#C8B6FF;
@@ -54,8 +56,7 @@
     .project-card{background:white;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 5px 20px rgba(23,19,35,.035);transition:transform .25s,box-shadow .25s}
     .project-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
     .project-art{aspect-ratio:4/3;background:linear-gradient(135deg,#211a35,#5f48a0 58%,#c8b6ff);display:grid;place-items:center;position:relative;overflow:hidden}
-    .project-art:before,.project-art:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.25);border-radius:50%;width:190px;height:190px}
-    .project-art:after{width:260px;height:260px}
+    .project-art img{width:100%;height:100%;object-fit:cover;display:block}
     .project-art span{position:relative;z-index:1;color:white;font-family:"Space Grotesk";font-weight:700;font-size:clamp(20px,3vw,31px);letter-spacing:-.05em;text-align:center;padding:20px}
     .project-info{padding:18px 19px 20px}
     .project-info h3{font-size:17px;margin-bottom:6px}
@@ -93,7 +94,6 @@
     .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(155,121,245,.12)}
     .field textarea{min-height:120px;resize:vertical}
     .form-note{font-size:11px;color:var(--muted);line-height:1.6;margin:12px 0 0}
-    .form-status{font-size:12px;color:#8b2635;line-height:1.5;margin-top:10px}
     footer{background:#100d19;color:#aaa3b8;padding:23px 0;font-size:12px}
     .footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
     .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
@@ -140,23 +140,19 @@
       <div class="container">
         <div class="section-head reveal">
           <div><div class="eyebrow">Selected projects</div><h2>MY CREATIVE WORK.</h2></div>
-          <p>A collection of design and editing projects. These are starter placeholders—your real project images can be added here later.</p>
+          <p>Explore live projects fetched directly from your database.</p>
         </div>
         <div class="filters reveal" id="filters">
           <button class="filter active" data-filter="all">ALL WORK</button>
-          <button class="filter" data-filter="esports">ESPORTS DESIGN</button>
-          <button class="filter" data-filter="esports-thumb">ESPORTS THUMBNAIL</button>
-          <button class="filter" data-filter="logo">LOGO DESIGN</button>
-          <button class="filter" data-filter="thumbnail">THUMBNAIL DESIGN</button>
-          <button class="filter" data-filter="video">VIDEO DESIGN</button>
+          <button class="filter" data-filter="esports design">ESPORTS DESIGN</button>
+          <button class="filter" data-filter="esports thumbnail">ESPORTS THUMBNAIL</button>
+          <button class="filter" data-filter="logo design">LOGO DESIGN</button>
+          <button class="filter" data-filter="thumbnail design">THUMBNAIL DESIGN</button>
+          <button class="filter" data-filter="video editing">VIDEO EDITING</button>
         </div>
         <div class="project-grid" id="projectGrid">
-          <article class="project-card reveal" data-category="esports"><div class="project-art"><span>ESPORTS<br>DESIGN</span></div><div class="project-info"><h3>Esports Design</h3><p>Team visuals & creative graphics</p></div></article>
-          <article class="project-card reveal" data-category="esports-thumb"><div class="project-art"><span>ESPORTS<br>THUMBNAIL</span></div><div class="project-info"><h3>Esports Thumbnail</h3><p>Gaming content artwork</p></div></article>
-          <article class="project-card reveal" data-category="logo"><div class="project-art"><span>LOGO<br>DESIGN</span></div><div class="project-info"><h3>Logo Design</h3><p>Brand identity & logo concepts</p></div></article>
-          <article class="project-card reveal" data-category="thumbnail"><div class="project-art"><span>THUMBNAIL<br>DESIGN</span></div><div class="project-info"><h3>Thumbnail Design</h3><p>Bold visuals for digital content</p></div></article>
-          <article class="project-card reveal" data-category="esports"><div class="project-art"><span>ESPORTS<br>POSTER</span></div><div class="project-info"><h3>Esports Poster</h3><p>Event & team promotional design</p></div></article>
-          <article class="project-card reveal" data-category="video"><div class="project-art"><span>VIDEO<br>EDITING</span></div><div class="project-info"><h3>Video Design</h3><p>Creative video editing projects</p></div></article>
+          <!-- Dynamic projects will load here from Supabase -->
+          <article class="project-card reveal"><div class="project-art"><span>LOADING...</span></div><div class="project-info"><h3>Loading projects...</h3><p>Please wait</p></div></article>
         </div>
       </div>
     </section>
@@ -206,7 +202,6 @@
           <div class="field"><label for="service">SERVICE REQUIRED</label><select id="service" name="service" required><option value="" disabled selected>Select a service</option><option>Esports Design</option><option>Esports Thumbnail</option><option>Logo Design</option><option>Thumbnail Design</option><option>Video Editing</option><option>Other</option></select></div>
           <div class="field"><label for="details">PROJECT DETAILS</label><textarea id="details" name="project_details" placeholder="Tell me a little about your project..." required></textarea></div>
           <button class="btn" type="submit">SEND MESSAGE ↗</button>
-          <p class="form-note">Your message will be sent through FormSubmit. On first setup, FormSubmit will email the site owner a verification link; the form will work after that email is confirmed. The form redirects to the service response—this page does not display a fake success message.</p>
         </form>
       </div>
     </section>
@@ -215,7 +210,10 @@
   <footer><div class="container footer-inner"><span>© <span id="year"></span> HASIVO CREATIVE. ALL RIGHTS RESERVED.</span><span>DESIGNED WITH PURPOSE.</span></div></footer>
 
   <script>
+    // Footer Year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile Menu Toggle
     const menuBtn = document.getElementById('menuBtn');
     const navLinks = document.getElementById('navLinks');
     menuBtn.addEventListener('click', () => {
@@ -225,14 +223,78 @@
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
       navLinks.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false');
     }));
-    document.querySelectorAll('.filter').forEach(btn => btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      document.querySelectorAll('.project-card').forEach(card => {
-        card.hidden = filter !== 'all' && card.dataset.category !== filter;
-      });
-    }));
+
+    // SUPABASE CONFIGURATION
+    const SUPABASE_URL = 'https://uxbxmrvdnxuzzgxdfgpe.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_o2uNrxVEoqwU0c4Jp7ucQg_UGjli5OW';
+
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Fetch and Render Projects from Supabase
+    async function loadProjects() {
+      const grid = document.getElementById('projectGrid');
+      try {
+        const { data, error } = await supabaseClient
+          .from('projects')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+          grid.innerHTML = '<article class="project-card reveal visible"><div class="project-art"><span>NO PROJECTS YET</span></div><div class="project-info"><h3>No projects found</h3><p>Upload via admin panel</p></div></article>';
+          return;
+        }
+
+        grid.innerHTML = '';
+        data.forEach(project => {
+          const card = document.createElement('article');
+          card.className = 'project-card reveal visible';
+          
+          const categorySlug = (project.category || '').toLowerCase().trim();
+          card.dataset.category = categorySlug;
+
+          const imageHTML = project.image_url 
+            ? `<img src="${project.image_url}" alt="${project.title || 'Project'}">`
+            : `<span>${(project.title || 'PROJECT').toUpperCase()}<br>DESIGN</span>`;
+
+          card.innerHTML = `
+            <div class="project-art">${imageHTML}</div>
+            <div class="project-info">
+              <h3>${project.title || 'Untitled Project'}</h3>
+              <p>${project.category || 'Creative Work'}</p>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+
+      } catch (err) {
+        console.error('Error loading projects:', err.message);
+        grid.innerHTML = '<article class="project-card reveal visible"><div class="project-art"><span>ERROR</span></div><div class="project-info"><h3>Failed to load</h3><p>Check console for details</p></div></article>';
+      }
+    }
+
+    // Filter Functionality
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('filter')) {
+        document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        const filter = e.target.dataset.filter;
+        
+        document.querySelectorAll('.project-card').forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+    });
+
+    // Load projects on page load
+    loadProjects();
+
+    // Scroll Animation Observer
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
