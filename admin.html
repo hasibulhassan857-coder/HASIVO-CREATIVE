@@ -1,10 +1,12 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HASIVO CREATIVE - Admin Panel</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase JS Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -112,7 +114,7 @@
             }
         });
 
-        // Form Submit (Exact same Supabase Bucket & Table commands)
+        // Form Submit
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             submitBtn.disabled = true;
@@ -200,7 +202,7 @@
                                 <span class="text-[11px] text-purple-400 font-medium">${p.category}</span>
                             </div>
                         </div>
-                        <button onclick="deleteProject(${p.id})" class="bg-red-500/15 hover:bg-red-600 text-red-400 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition shrink-0">
+                        <button onclick="deleteProject(${p.id})" class="bg-red-500/15 hover:bg-red-600 text-red-400 hover:text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition shrink-0 cursor-pointer">
                             Delete
                         </button>
                     </div>
