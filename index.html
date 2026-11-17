@@ -251,22 +251,24 @@
           const card = document.createElement('article');
           card.className = 'project-card reveal visible';
           
-          const categorySlug = (project.category || '').toLowerCase().trim();
+          const categorySlug = (project.category || '').toLowerCase().trim().replace(/\s+/g, ' ');
           card.dataset.category = categorySlug;
 
           const imageHTML = project.image_url 
-            ? `<img src="${project.image_url}" alt="${project.title || 'Project'}">`
+            ? `<img src="${project.image_url}" alt="${project.title || 'Project'}" onerror="this.onerror=null;this.parentElement.innerHTML='<span>${(project.title || 'PROJECT').toUpperCase()}<br>DESIGN</span>';">`
             : `<span>${(project.title || 'PROJECT').toUpperCase()}<br>DESIGN</span>`;
 
           card.innerHTML = `
             <div class="project-art">${imageHTML}</div>
             <div class="project-info">
-              <h3>${project.title || 'Untitled Project'}</h3>
+              <h3>${project.title && project.title.trim() !== '' ? project.title : 'Untitled Project'}</h3>
               <p>${project.category || 'Creative Work'}</p>
             </div>
           `;
           grid.appendChild(card);
         });
+
+        applyCurrentFilter();
 
       } catch (err) {
         console.error('Error loading projects:', err.message);
@@ -274,20 +276,27 @@
       }
     }
 
-    // Filter Functionality
+    // Filter Functionality Helper
+    function applyCurrentFilter() {
+      const activeFilterBtn = document.querySelector('.filter.active');
+      const filter = activeFilterBtn ? activeFilterBtn.dataset.filter.toLowerCase().trim() : 'all';
+      
+      document.querySelectorAll('.project-card').forEach(card => {
+        const cardCategory = (card.dataset.category || '').toLowerCase().trim();
+        if (filter === 'all' || cardCategory === filter) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Filter Click Event Listener
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('filter')) {
         document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
         e.target.classList.add('active');
-        const filter = e.target.dataset.filter;
-        
-        document.querySelectorAll('.project-card').forEach(card => {
-          if (filter === 'all' || card.dataset.category === filter) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
-        });
+        applyCurrentFilter();
       }
     });
 
