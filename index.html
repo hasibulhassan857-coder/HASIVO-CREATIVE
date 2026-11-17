@@ -141,8 +141,8 @@
     .project-info h3{font-size:17px;margin-bottom:4px}
     .project-info p{font-size:12.5px;color:var(--muted);margin:0}
 
-    /* SOCIAL MEDIA HUB SECTION */
-    .social-banner-section{background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:84px 0;position:relative}
+    /* SOCIAL MEDIA SHOWCASE SECTION (NEW) */
+    .social-banner-section{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:70px 0;position:relative}
     .social-showcase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:35px}
     .social-promo-card{background:var(--card-bg);border:1px solid var(--line);border-radius:20px;padding:28px;position:relative;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.04);transition:.3s}
     .social-promo-card:hover{transform:translateY(-6px);border-color:var(--purple);box-shadow:var(--shadow)}
@@ -229,7 +229,7 @@
     .lightbox-info{padding:24px;color:white}
 
     footer{background:#0b0912;color:#aaa3b8;padding:24px 0;font-size:12px;border-top:1px solid rgba(255,255,255,.06)}
-    .footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;align-items:center}
+    .footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
 
     @media(max-width:850px){.nav-cta{display:none}.project-grid,.social-showcase-grid{column-count:1;grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr;gap:35px}.about-grid,.service-grid{grid-template-columns:1fr;gap:24px}.folder-grid,.fun-grid{grid-template-columns:1fr}}
     @media(max-width:640px){.container{width:min(100% - 30px,1160px)}nav{height:68px}.menu-btn{display:block}.nav-links{display:none;position:absolute;top:68px;left:0;right:0;padding:20px;background:var(--soft);border-bottom:1px solid var(--line);flex-direction:column;align-items:flex-start}.nav-links.open{display:flex}}
@@ -332,7 +332,7 @@
       </div>
     </section>
 
-    <!-- SOCIAL MEDIA CHANNELS & DESIGNS SECTION -->
+    <!-- NEW SOCIAL MEDIA CHANNELS & DESIGNS SECTION -->
     <section class="social-banner-section reveal" id="socialsSection">
       <div class="container">
         <div class="section-head">
@@ -370,6 +370,7 @@
         <p style="color:#c8c2d5; max-width:540px; margin-top:8px;">Real struggles of a graphic designer, turned into mini-games. Test your patience below!</p>
         
         <div class="fun-grid">
+          <!-- CARD 1: CLIENT TRANSLATOR -->
           <div class="fun-card">
             <div>
               <h3>💬 Client Translator 2.0</h3>
@@ -382,6 +383,7 @@
             </div>
           </div>
 
+          <!-- CARD 2: REVISION RAGE METER -->
           <div class="fun-card" id="rageCard">
             <div>
               <h3>🔥 Revision Rage Meter</h3>
@@ -397,6 +399,7 @@
             </div>
           </div>
 
+          <!-- CARD 3: CHAOS BRIEF ROULETTE -->
           <div class="fun-card">
             <div>
               <h3>🎰 Chaos Brief Roulette</h3>
@@ -482,12 +485,7 @@
     </div>
   </div>
 
-  <footer>
-    <div class="container footer-inner">
-      <span id="easterEggTrigger" style="cursor:pointer">© <span id="year"></span> HASIVO CREATIVE. ALL RIGHTS RESERVED. [🎮 GGWP]</span>
-      <span><a href="admin.html" style="opacity:.45; transition:.2s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.45">ADMIN VAULT</a> • DESIGNED WITH PURPOSE.</span>
-    </div>
-  </footer>
+  <footer><div class="container footer-inner"><span id="easterEggTrigger" style="cursor:pointer">© <span id="year"></span> HASIVO CREATIVE. ALL RIGHTS RESERVED. [🎮 GGWP]</span><span>DESIGNED WITH PURPOSE.</span></div></footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -554,7 +552,7 @@
       if(isGamer) triggerParty();
     });
 
-    // SUPABASE DATABASE CONNECTION (SYNCED WITH admin.html)
+    // SUPABASE DATABASE CONNECTION (UNCHANGED)
     const SUPABASE_URL = 'https://uxbxmrvdnxuzzgxdfgpe.supabase.co';
     const SUPABASE_ANON_KEY = 'sb_publishable_o2uNrxVEoqwU0c4Jp7ucQg_UGjli5OW';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -622,25 +620,17 @@
         const imageUrl = project.image_url || '';
 
         const imageHTML = imageUrl 
-          ? `<img src="${imageUrl}" alt="${projectName.replace(/"/g, '&quot;')}" onerror="this.onerror=null;this.parentElement.innerHTML='<span>${projectName.toUpperCase().replace(/'/g, "\\'")}</span>';">`
+          ? `<img src="${imageUrl}" alt="${projectName}" onerror="this.onerror=null;this.parentElement.innerHTML='<span>${projectName.toUpperCase()}</span>';">`
           : `<span>${projectName.toUpperCase()}</span>`;
 
-        const artDiv = document.createElement('div');
-        artDiv.className = 'project-art';
-        artDiv.innerHTML = imageHTML;
-        artDiv.addEventListener('click', () => openLightbox(imageUrl, projectName, project.category));
-
-        const badgeDiv = document.createElement('div');
-        badgeDiv.className = 'serial-badge';
-        badgeDiv.textContent = serialNo;
-
-        const infoDiv = document.createElement('div');
-        infoDiv.className = 'project-info';
-        infoDiv.innerHTML = `<h3>${projectName}</h3><p>${project.description || project.category}</p>`;
-
-        card.appendChild(badgeDiv);
-        card.appendChild(artDiv);
-        card.appendChild(infoDiv);
+        card.innerHTML = `
+          <div class="serial-badge">${serialNo}</div>
+          <div class="project-art" onclick="openLightbox('${imageUrl}', '${projectName}', '${project.category}')">${imageHTML}</div>
+          <div class="project-info">
+            <h3>${projectName}</h3>
+            <p>${project.description || project.category}</p>
+          </div>
+        `;
         grid.appendChild(card);
       });
     }
